@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative './input_format_lib'
+
 MAXIMUM_DIGITS = 10
 
 # Adds method for proper rounding
@@ -25,12 +27,12 @@ end
 
 def mount_function
   print "Please state f(x)'s degree (whole number): "
-  func_degree = gets.to_i
+  func_degree = filter_input_to_number(:Integer)
 
   coefficients = []
   func_degree.downto(0) do |i|
     print "What's the coefficient for X^#{i}: "
-    coefficients.unshift(gets.to_i)
+    coefficients.unshift(filter_input_to_number(:Integer))
   end
 
   { degree: func_degree, coefficients: coefficients }
