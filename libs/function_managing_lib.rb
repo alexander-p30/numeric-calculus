@@ -82,7 +82,7 @@ def new_limit_false_position(function_and_limits)
   (a - b) / (higher_result - lower_result)
 end
 
-def rearrange_limits(limits, function, func_root)
+def limits_rearrange_and_result(limits, function, func_root)
   approx_root_result = calculate_function(function, func_root)
   lower_limit_result = calculate_function(function, limits[0])
 
@@ -92,23 +92,22 @@ def rearrange_limits(limits, function, func_root)
     limits[0] = func_root
   end
 
-  limits
+  [limits, approx_root_result]
 end
 
 def find_approximate_zero(data, method)
   func_root = 0
   k = 0
-  result = ''
-  current_iteration_data = {}
-  while !send(data[:stopping_criterion], current_iteration_data) && k != data[:maximum_iterations]
+  loop do
     k += 1
     func_root = calculate_new_limit(data, method)
-    data[:limits] = rearrange_limits(data[:limits], data[:function], func_root)
+    data[:limits], result = limits_rearrange_and_result(data[:limits], data[:function], func_root)
     current_iteration_data = { limits: data[:limits],
                                error: data[:error_margin],
                                result: result,
                                iteration: k,
                                max_iterations: data[:maximum_iterations] }
+    break if send(data[:stopping_criterion], current_iteration_data)
   end
   [func_root, k, data[:limits]]
 end
