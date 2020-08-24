@@ -1,0 +1,7 @@
+# Configuration parameters: IgnoredMethods.
+Metrics/AbcSize:
+  Max: 25
+
+# Configuration parameters: CountComments, CountAsOne, ExcludedMethods.
+Metrics/MethodLength:
+  Max: 15
