@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative './libs/functions_lib'
-require_relative './libs/problems_lib'
+require_relative './libs/nction_managing_lib'
+require_relative './libs/oblem_solving_lib'
 
 function = fetch_function_data
 limits, error_margin, maximum_iterations, criterion = fetch_problem_data
